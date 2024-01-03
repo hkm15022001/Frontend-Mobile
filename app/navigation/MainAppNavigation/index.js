@@ -1,5 +1,5 @@
 import React from 'react';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppStateStore from '../../store/state';
 import {BACKEND_API_URL} from '../../vars';
@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import UserContext from '../../context/UserContext';
 import HomeStackScreen from '../HomeStackScreen';
+import OrderStackScreen from '../OrderStackScreen';
 import ProfileStackScreen from '../ProfileStackScreen';
 import NotificationScreen from '../../screens/NotificationScreens/MainNotificatons';
 
@@ -36,7 +37,6 @@ async function saveTokenToDatabase(accessToken, appToken) {
   const requestOption = {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       Authorization: accessToken,
       'Content-Type': 'application/json',
     },
@@ -64,7 +64,7 @@ async function requestUserPermission() {
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
-    console.log('Authorization status:', authStatus);
+    console.log('Authorization device status:', authStatus);
   }
 }
 
@@ -113,25 +113,37 @@ const Tab = createBottomTabNavigator();
 const AuthStack = createStackNavigator();
 
 export default function MainAppNavigation() {
-  const [valueforContext, setValueforContext] = React.useState({
-    name: 'Bui Gia Hoa',
-    address: '20 Le Truc Street, Ward 7, Binh Thanh District, Ho Chi Minh',
-    phoneNumber: '0902733275',
-    customerId: '123456789',
-    email: 'hoa199297@gmail.com',
-    gender: 'Male',
-    dayofBirth: '29/7/1998',
-  });
   const reOpenApp = AppStateStore.useStoreActions(
     (actions) => actions.reOpenApp,
   );
   const isLoading = AppStateStore.useStoreState((state) => state.isLoading);
   const accessToken = AppStateStore.useStoreState((state) => state.accessToken);
+  const isCustomer = AppStateStore.useStoreState((state) => state.isCustomer);
+  const userContextInStore = AppStateStore.useStoreState(
+    (state) => state.userContextInStore,
+  );
+  const [valueforContext, setValueforContext] = React.useState({
+    customer_id: 0,
+    employee_id: 0,
+    name: '',
+    address: '',
+    phone: 0,
+    gender: '',
+    age: 0,
+  });
 
   React.useEffect(() => {
     reOpenApp();
     requestUserPermission();
     createNotificationListeners();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    setValueforContext(userContextInStore);
+  }, [userContextInStore]);
+
+  React.useEffect(() => {
     messaging()
       .getToken()
       .then((appToken) => {
@@ -143,27 +155,11 @@ export default function MainAppNavigation() {
       });
       createNotificationListeners();
     };
-  }, [reOpenApp, accessToken]);
+  }, [accessToken]);
 
   if (isLoading) {
     return <SplashScreen />;
   }
-
-  const HomeStackUserContext = () => {
-    return (
-      <UserContext.Provider value={[valueforContext, setValueforContext]}>
-        <HomeStackScreen />
-      </UserContext.Provider>
-    );
-  };
-
-  const ProfileStackUserContext = () => {
-    return (
-      <UserContext.Provider value={[valueforContext, setValueforContext]}>
-        <ProfileStackScreen />
-      </UserContext.Provider>
-    );
-  };
 
   return (
     <NavigationContainer>
@@ -175,68 +171,82 @@ export default function MainAppNavigation() {
           <AuthStack.Screen name="SignIn" component={SignInScreen} />
         </AuthStack.Navigator>
       ) : (
-        <Tab.Navigator
-          // screenOptions={({route}) => ({
-          //   tabBarIcon: ({focused, color, size}) => {
-          //     let iconName;
+        <UserContext.Provider value={[valueforContext, setValueforContext]}>
+          {isCustomer === true ? (
+            <Tab.Navigator
+              tabBarOptions={{
+                showLabel: false,
+                activeTintColor: '#c98249',
+                inactiveTintColor: 'gray',
+                tabStyle: {
+                  paddingVertical: 5,
+                },
+              }}>
+              <Tab.Screen
+                name="Home"
+                component={HomeStackScreen}
+                options={{
+                  tabBarLabel: 'Home',
+                  tabBarColor: '#694fad',
+                  tabBarIcon: ({color}) => (
+                    <MaterialCommunityIcons
+                      name="home"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
 
-          //     if (route.name === 'Home') {
-          //       iconName = focused
-          //         ? 'information-circle'
-          //         : 'information-circle-outline';
-          //     } else if (route.name === 'Settings') {
-          //       iconName = focused ? 'list-outline' : 'list-outline';
-          //     }
+              <Tab.Screen
+                name="Orders"
+                component={OrderStackScreen}
+                options={{
+                  tabBarLabel: 'Orders',
+                  tabBarColor: '#694fad',
+                  tabBarIcon: ({color}) => (
+                    <MaterialCommunityIcons
+                      name="package-variant-closed"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
 
-          //     // You can return any component that you like here!
-          //     return <Ionicons name={iconName} size={size} color={color} />;
-          //   },
-          // })}
-          tabBarOptions={{
-            activeTintColor: 'blue',
-            inactiveTintColor: 'gray',
-          }}>
-          <Tab.Screen
-            name="Feed"
-            component={HomeStackUserContext}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarColor: '#694fad',
-              tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
+              <Tab.Screen
+                name="Notifications"
+                component={NotificationScreen}
+                options={{
+                  tabBarLabel: 'Notifications',
+                  tabBarColor: '#694fad',
+                  tabBarIcon: ({color}) => (
+                    <MaterialCommunityIcons
+                      name="bell"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                }}
+              />
 
-          <Tab.Screen
-            name="Notifications"
-            component={NotificationScreen}
-            options={{
-              tabBarLabel: 'Notifications',
-              tabBarColor: '#694fad',
-              tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons name="bell" color={color} size={26} />
-              ),
-            }}
-          />
-
-          <Tab.Screen
-            name="Profiles"
-            component={ProfileStackUserContext}
-            options={{
-              tabBarLabel: 'Profiles',
-              tabBarColor: '#694fad',
-              // tabBarVisible: false, sử dụng biến truyền component con sang cha để gán giá trị
-              tabBarIcon: ({color}) => (
-                <MaterialCommunityIcons
-                  name="account"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
+              <Tab.Screen
+                name="Profiles"
+                component={ProfileStackScreen}
+                options={{
+                  tabBarLabel: 'Profiles',
+                  tabBarColor: '#694fad',
+                  // tabBarVisible: false, sử dụng biến truyền component con sang cha để gán giá trị
+                  tabBarIcon: ({color}) => (
+                    <EvilIcons name="navicon" color={color} size={26} />
+                  ),
+                }}
+              />
+            </Tab.Navigator>
+          ) : (
+            <></>
+          )}
+        </UserContext.Provider>
       )}
     </NavigationContainer>
   );
