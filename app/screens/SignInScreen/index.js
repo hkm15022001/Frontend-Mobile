@@ -18,7 +18,6 @@ export default function SignInScreen() {
   const signIn = AppStateStore.useStoreActions((actions) => actions.signIn);
 
   function handleLogin() {
-    console.log('Login:', email);
     fetch(BACKEND_API_URL + '/app-auth/loginJSON', {
       method: 'POST',
       headers: {
@@ -37,9 +36,7 @@ export default function SignInScreen() {
         return res.json();
       })
       .then((json) => signIn(json))
-      .catch((error) => {
-        Alert.alert(JSON.stringify(error));
-      });
+      .catch((error) => Alert.alert(error));
   }
 
   return (
