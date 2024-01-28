@@ -21,7 +21,7 @@ export default function SignInScreen({navigation}) {
   );
 
   function handleLogin() {
-    fetch(BACKEND_API_URL + '/app-auth/loginJSON', {
+    fetch(BACKEND_API_URL + '/scem-user/app-auth/loginJSON', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -33,7 +33,9 @@ export default function SignInScreen({navigation}) {
       }),
     })
       .then((res) => {
+        console.log(res)
         if (res.status !== 201) {
+          
           return Promise.reject('Sai email hoặc mật khẩu');
         }
         return res.json();

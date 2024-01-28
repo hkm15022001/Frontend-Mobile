@@ -50,7 +50,7 @@ const OrderShortShipList = ({navigation}) => {
     };
     return await fetch(
       BACKEND_API_URL +
-        '/api/order-short-ship/list/employee-id/' +
+        '/scem-ship/api/order-short-ship/list/employee-id/' +
         userContextValue.employee_id,
       requestOptions,
     )

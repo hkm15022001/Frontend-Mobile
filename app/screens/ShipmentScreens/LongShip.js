@@ -22,18 +22,20 @@ const LongShip = ({navigation}) => {
   const [data, setData] = useState(null);
 
   const statusList = [
-    {Title: 'Load package', API: '/api/long-ship/update-load-package/qrcode/'},
-    {
-      Title: 'Unload package',
-      API: '/api/long-ship/update-start-vehicle/qrcode/',
-    },
+    { 
+      Title: 'Load package', 
+      API: '/scem-ship/api/long-ship/update-load-package/qrcode/'},
     {
       Title: 'Vehicle starts',
-      API: '/api/long-ship/update-vehicle-arrived/qrcode/',
+      API: '/scem-ship/api/long-ship/update-start-vehicle/qrcode/',
     },
     {
       Title: 'Vehicle arrived',
-      API: '/api/long-ship/update-unload-package/qrcode/',
+      API: '/scem-ship/api/long-ship/update-vehicle-arrived/qrcode/',
+    },
+    {
+      Title: 'Unload package',
+      API: '/scem-ship/api/long-ship/update-unload-package/qrcode/',
     },
   ];
 

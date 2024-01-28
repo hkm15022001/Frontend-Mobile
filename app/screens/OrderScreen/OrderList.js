@@ -7,7 +7,7 @@ import {format} from 'date-fns';
 
 import AppStateStore from '../../store/state';
 import {BACKEND_API_URL} from '../../vars';
-import {BACKEND_API_IMAGE_URL} from '../../vars';
+import {BACKEND_API_ORDER_IMAGE_URL} from '../../vars';
 import UserContext from '../../context/UserContext';
 
 const OrderList = ({navigation}) => {
@@ -49,7 +49,7 @@ const OrderList = ({navigation}) => {
     };
     return await fetch(
       BACKEND_API_URL +
-        '/api/order/list/customer-id/' +
+        '/scem-order/api/order/list/customer-id/' +
         userContextValue.customer_id,
       requestOptions,
     )
@@ -94,7 +94,7 @@ const OrderList = ({navigation}) => {
                   <View style={styles.orderCardDetailContainer}>
                     <Image
                       source={{
-                        uri: BACKEND_API_IMAGE_URL + item.image,
+                        uri: BACKEND_API_ORDER_IMAGE_URL + item.image,
                       }}
                       style={styles.orderCardDetailImage}
                     />

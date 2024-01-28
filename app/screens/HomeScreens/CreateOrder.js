@@ -49,8 +49,8 @@ const CreateOrderScreen = ({route, navigation}) => {
   const [senderName, setSenderName] = useState(userContextValue.name);
   const [senderAddress, setSenderAddress] = useState(userContextValue.address);
   const [senderPhone, setSenderPhone] = useState(userContextValue.phone);
-  const [receiverName, setReceiverName] = useState('Tuan');
-  const [receiverAddress, setReceiverAddress] = useState('123 Tran Nao');
+  const [receiverName, setReceiverName] = useState('Minh');
+  const [receiverAddress, setReceiverAddress] = useState('123 Tran Hung Dao');
   const [receiverPhone, setReceiverPhone] = useState(234);
   const [packageDetail, setPackageDetail] = useState('May vi tinh ca nhan');
   const [packageNote, setPackageNote] = useState('Giao hang vao buoi trua');
@@ -104,7 +104,7 @@ const CreateOrderScreen = ({route, navigation}) => {
       body: formData,
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order/upload/image',
+      BACKEND_API_URL + '/scem-order/api/order/upload/image',
       requestOptions,
     )
       .then((res) => {
@@ -152,7 +152,7 @@ const CreateOrderScreen = ({route, navigation}) => {
             body: JSON.stringify(state),
           };
           return fetch(
-            BACKEND_API_URL + '/api/order/create-use-voucher',
+            BACKEND_API_URL + '/scem-order/api/order/create-use-voucher',
             requestOptions,
           );
         })
@@ -183,7 +183,7 @@ const CreateOrderScreen = ({route, navigation}) => {
     };
 
     return await fetch(
-      BACKEND_API_URL + '/api/order-pay/create-step-one',
+      BACKEND_API_URL + '/scem-order/api/order-pay/create-step-one',
       requestOptions,
     )
       .then((res) => {
@@ -220,7 +220,7 @@ const CreateOrderScreen = ({route, navigation}) => {
     };
 
     return await fetch(
-      BACKEND_API_URL + '/api/order-pay/create-step-two',
+      BACKEND_API_URL + '/scem-order/api/order-pay/create-step-two',
       requestOptions,
     )
       .then((res) => {
@@ -249,7 +249,7 @@ const CreateOrderScreen = ({route, navigation}) => {
 
     return await fetch(
       BACKEND_API_URL +
-        '/api/order-pay/update-payment-confirm/orderid/' +
+        '/scem-order/api/order-pay/update-payment-confirm/orderid/' +
         orderCreatedID,
       requestOptions,
     )

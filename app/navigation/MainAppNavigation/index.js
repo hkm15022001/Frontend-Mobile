@@ -49,7 +49,7 @@ async function saveTokenToDatabase(accessToken, appToken) {
       }),
     };
 
-    return await fetch(BACKEND_API_URL + '/fcm-auth/save-token', requestOption)
+    return await fetch(BACKEND_API_URL + '/scem-user/fcm-auth/save-token', requestOption)
       .then((res) => {
         if (res.status !== 200) {
           return Promise.reject('Unauthorized');

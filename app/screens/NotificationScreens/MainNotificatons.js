@@ -48,7 +48,7 @@ const MainNotifications = ({navigation}) => {
     };
     return await fetch(
       BACKEND_API_URL +
-        '/api/customer-notification/list/customer-id/' +
+        '/scem-user/api/customer-notification/list/customer-id/' +
         userContextValue.customer_id,
       requestOptions,
     )

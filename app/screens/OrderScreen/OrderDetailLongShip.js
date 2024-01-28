@@ -143,7 +143,7 @@ const OrderDetailLongShip = ({route, navigation}) => {
       method: 'GET',
     };
     return await fetch(
-      BACKEND_API_URL + '/api/long-ship/id/' + longShipID,
+      BACKEND_API_URL + '/scem-ship/api/long-ship/id/' + longShipID,
       requestOptions,
     )
       .then((res) => {

@@ -134,7 +134,7 @@ const OrderDetailShortShip = ({route, navigation}) => {
       method: 'GET',
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order-short-ship/id/' + orderShortShipID,
+      BACKEND_API_URL + '/scem-ship/api/order-short-ship/id/' + orderShortShipID,
       requestOptions,
     )
       .then((res) => {

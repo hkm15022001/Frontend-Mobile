@@ -30,7 +30,7 @@ const MainProfilesScreen = ({navigation}) => {
   }, [validateToken]);
 
   function handleLogout() {
-    fetch(BACKEND_API_URL + '/app-auth/logout', {
+    fetch(BACKEND_API_URL + '/scem-user/app-auth/logout', {
       headers: {
         Authorization: accessToken,
       },

@@ -44,7 +44,7 @@ const validateAccessToken = async () => {
   let token = values[3][1] + values[0][1];
   let time = Math.floor(Date.now() / 1000);
   if (time > values[1][1]) {
-    return await fetch(BACKEND_API_URL + '/app-auth/access-token/get-new', {
+    return await fetch(BACKEND_API_URL + '/scem-user/app-auth/access-token/get-new', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -100,7 +100,7 @@ const bootstrapAsync = async () => {
     let token = values[3][1] + values[0][1];
     let time = Math.floor(Date.now() / 1000);
     if (time > values[1][1]) {
-      return await fetch(BACKEND_API_URL + '/app-auth/access-token/get-new', {
+      return await fetch(BACKEND_API_URL + '/scem-user/app-auth/access-token/get-new', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -127,7 +127,7 @@ const bootstrapAsync = async () => {
           return null;
         });
     } else if (time < values[1][1]) {
-      return await fetch(BACKEND_API_URL + '/app-auth/access-token/check-old', {
+      return await fetch(BACKEND_API_URL + '/scem-user/app-auth/access-token/check-old', {
         headers: {
           Authorization: token,
         },
@@ -180,10 +180,10 @@ const bootstrapUserContext = async (accessToken, userSpecificID) => {
   let apiString = '';
   if (userSpecificID.employeeID !== '0') {
     apiString =
-      BACKEND_API_URL + '/api/employee/id/' + userSpecificID.employeeID;
+      BACKEND_API_URL + '/scem-user/api/employee/id/' + userSpecificID.employeeID;
   } else {
     apiString =
-      BACKEND_API_URL + '/api/customer/id/' + userSpecificID.customerID;
+      BACKEND_API_URL + '/scem-user/api/customer/id/' + userSpecificID.customerID;
   }
   return await fetch(apiString, {
     headers: {

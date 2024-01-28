@@ -100,7 +100,7 @@ const CreateOrderScreen = ({route, navigation}) => {
       body: formData,
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order/upload/image',
+      BACKEND_API_URL + '/scem-order/api/order/upload/image',
       requestOptions,
     )
       .then((res) => {
@@ -148,7 +148,7 @@ const CreateOrderScreen = ({route, navigation}) => {
             body: JSON.stringify(state),
           };
           return fetch(
-            BACKEND_API_URL + '/api/order/create-use-voucher',
+            BACKEND_API_URL + '/scem-order/api/order/create-use-voucher',
             requestOptions,
           );
         })
@@ -179,7 +179,7 @@ const CreateOrderScreen = ({route, navigation}) => {
     };
 
     return await fetch(
-      BACKEND_API_URL + '/api/order-pay/create-step-one',
+      BACKEND_API_URL + '/scem-order/api/order-pay/create-step-one',
       requestOptions,
     )
       .then((res) => {
@@ -216,7 +216,7 @@ const CreateOrderScreen = ({route, navigation}) => {
     };
 
     return await fetch(
-      BACKEND_API_URL + '/api/order-pay/create-step-two',
+      BACKEND_API_URL + '/scem-order/api/order-pay/create-step-two',
       requestOptions,
     )
       .then((res) => {
@@ -245,7 +245,7 @@ const CreateOrderScreen = ({route, navigation}) => {
 
     return await fetch(
       BACKEND_API_URL +
-        '/api/order-pay/update-payment-confirm/orderid/' +
+        '/scem-order/api/order-pay/update-payment-confirm/orderid/' +
         orderCreatedID,
       requestOptions,
     )

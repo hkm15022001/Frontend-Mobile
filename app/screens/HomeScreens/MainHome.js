@@ -7,7 +7,7 @@ import AppStateStore from '../../store/state';
 const LeftContent = (props) => <Avatar.Icon {...props} icon="check" />;
 
 import {BACKEND_API_URL} from '../../vars';
-import {BACKEND_API_IMAGE_URL} from '../../vars';
+import {BACKEND_API_ORDER_IMAGE_URL} from '../../vars';
 
 const HomeScreen = ({navigation}) => {
   const validateToken = AppStateStore.useStoreActions(
@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}) => {
       method: 'GET',
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order-voucher/list' + fullQueryString,
+      BACKEND_API_URL + '/scem-order/api/order-voucher/list' + fullQueryString,
       requestOptions,
     )
       .then((res) => {
@@ -157,7 +157,7 @@ const HomeScreen = ({navigation}) => {
               /> */}
               <Card.Cover
                 source={{
-                  uri: BACKEND_API_IMAGE_URL + 'voucher.jpg',
+                  uri: BACKEND_API_ORDER_IMAGE_URL + 'voucher.jpg',
                 }}
               />
               <Card.Actions style={styles.cardAction}>

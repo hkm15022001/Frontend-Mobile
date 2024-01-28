@@ -67,7 +67,7 @@ const OrderShortShipConfirm = ({route, navigation}) => {
     };
     return await fetch(
       BACKEND_API_URL +
-        '/api/order-short-ship/update/shipper-confirmed/' +
+        '/scem-ship/api/order-short-ship/update/shipper-confirmed/' +
         orderShortShipID,
       requestOptions,
     )

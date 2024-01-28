@@ -12,7 +12,7 @@ import {View} from 'react-native';
 
 import AppStateStore from '../../store/state';
 import {BACKEND_API_URL} from '../../vars';
-import {BACKEND_API_IMAGE_URL} from '../../vars';
+import {BACKEND_API_SHIP_IMAGE_URL} from '../../vars';
 import {useIsFocused} from '@react-navigation/native';
 
 const OrderShortShip = ({route, navigation}) => {
@@ -52,7 +52,7 @@ const OrderShortShip = ({route, navigation}) => {
       method: 'GET',
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order-short-ship/id/' + orderShortShipID,
+      BACKEND_API_URL + '/scem-ship/api/order-short-ship/id/' + orderShortShipID,
       requestOptions,
     )
       .then((res) => {
@@ -135,7 +135,7 @@ const OrderShortShip = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.panelButton}
               onPress={() =>
-                handleActionAPI('/api/order-short-ship/update/shipper-called/')
+                handleActionAPI('/scem-ship/api/order-short-ship/update/shipper-called/')
               }>
               <Text style={styles.panelButtonTitle}>Shipper called</Text>
             </TouchableOpacity>
@@ -145,7 +145,7 @@ const OrderShortShip = ({route, navigation}) => {
               style={styles.panelButton}
               onPress={() =>
                 handleActionAPI(
-                  '/api/order-short-ship/update/shipper-received-money/',
+                  '/scem-ship/api/order-short-ship/update/shipper-received-money/',
                 )
               }>
               <Text style={styles.panelButtonTitle}>
@@ -157,7 +157,7 @@ const OrderShortShip = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.panelButton}
               onPress={() =>
-                handleActionAPI('/api/order-short-ship/update/shipper-shipped/')
+                handleActionAPI('/scem-ship/api/order-short-ship/update/shipper-shipped/')
               }>
               <Text style={styles.panelButtonTitle}>Shipper shipped</Text>
             </TouchableOpacity>
@@ -178,7 +178,7 @@ const OrderShortShip = ({route, navigation}) => {
               style={styles.panelButton}
               onPress={() =>
                 handleActionCancelAPI(
-                  '/api/order-short-ship/update/cancel-order/',
+                  '/scem-ship/api/order-short-ship/update/cancel-order/',
                 )
               }>
               <Text style={styles.panelButtonTitle}>Shipper canceled</Text>
@@ -273,7 +273,7 @@ const OrderShortShip = ({route, navigation}) => {
                       style={styles.imageStyle}
                       source={{
                         uri:
-                          BACKEND_API_IMAGE_URL +
+                        BACKEND_API_SHIP_IMAGE_URL +
                           orderShortShip.shipper_confirmed,
                       }}
                     />

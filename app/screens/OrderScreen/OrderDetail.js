@@ -37,7 +37,7 @@ const OrderDetail = ({route, navigation}) => {
       method: 'GET',
     };
     return await fetch(
-      BACKEND_API_URL + '/api/order/id/' + orderID,
+      BACKEND_API_URL + '/scem-order/api/order/id/' + orderID,
       requestOptions,
     )
       .then((res) => {
