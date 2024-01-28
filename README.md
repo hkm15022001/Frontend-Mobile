@@ -15,11 +15,6 @@ In the project directory, you can run:
 
 **Note: config back-end API in app/var.js!**
 
-## Project Information
-
-**Graduation Thesis 2021 - Software Engineering\
-University Of Information Technology - VNU**
-
 ## License
 
 Feel free to use but dont forget to give this awesome repository a **Star** :sunglasses:.
